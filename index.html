@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="style.css">
+
+<body>
+    <div>
+        <button onclick="listAlunos()">Alunos</button>
+        <!-- <button onclick="listAlunos()">Alunos</button> -->
+        <br>
+        <div id="f">
+            <div class="container">
+                <img src= ""  width="124px" alt="AlunoImg">
+                <ul>
+                    <li ><strong>Nome: <span id="name"></span></strong></li>
+                    <li><strong>Rgm: <span id="rgm"></span></strong></li>
+                    <li><strong>Av.parcial: <span id="avP"></span></strong></li>
+                    <li><strong>Exercicios <span id="exerc"></span></strong></li>
+                    <li><strong>Av.regimental: <span id="avR"></span></strong></li>
+                    <li><strong>Media: <span id="media"></span></strong></li>
+                    <li><strong>status: <span id="status"></span></strong></li>
+                </ul>
+            </div>
+        </div>       
+    </div>
+
+<script>
+const base = `{
+    "alunos": [
+    {
+    "nome": "Aline",
+    "rgm": 299,
+    "avaliacaoParcial": 2,
+    "exercicio": 2,
+    "avaliacaoRegimental": 2,
+    "img": "./imgs/aline.jpg"
+    },
+    {
+    "nome": "Ana",
+    "rgm": 300,
+    "avaliacaoParcial": 10,
+    "exercicio": 10,
+    "avaliacaoRegimental": 10,
+    "img": "./imgs/ana.jpg"
+    },
+    {
+    "nome": "Bianca",
+    "rgm": 301,
+    "avaliacaoParcial": 1,
+    "exercicio": 1,
+    "avaliacaoRegimental": 1,
+    "img": "./imgs/bianca.jpg"
+    }
+    ]
+}`
+
+
+function listAlunos(){
+    const obj = JSON.parse(base);
+    let dados
+    let nome
+    let rgm 
+    let avP 
+    let avR 
+    let status
+    let media
+    let img 
+    let alunoImg 
+    let mySrc 
+
+
+    for (let index = 0; index <= obj["alunos"].length; index++) {
+
+        dados = obj["alunos"][index]
+        nome = dados["nome"];
+        rgm = dados["rgm"];
+        exerc =  dados["exercicio"];
+        avP =  dados["avaliacaoParcial"];
+        avR =  dados["avaliacaoRegimental"];
+        img = dados["img"];
+        media = (avP+avR +exerc)/3
+        alunoImg = document.querySelector('img')
+        mySrc = alunoImg.getAttribute('src')
+        
+        if (media>=6) {
+            document.getElementById("status").innerHTML = "Aprovado(a)"
+        } else if( media>=2 && media < 6){
+            document.getElementById("status").innerHTML = "Prova Final"
+        } else if(media<2){
+            document.getElementById("status").innerHTML = "Reprovado(a)"
+        }  
+        alunoImg.setAttribute('src',img) 
+
+        document.getElementById("name").innerHTML = nome
+        document.getElementById("rgm").innerHTML = rgm
+        document.getElementById("exerc").innerHTML = exerc
+        document.getElementById("avP").innerHTML = avP
+        document.getElementById("avR").innerHTML = avR
+        document.getElementById("media").innerHTML = media
+        
+
+        let div = document.createElement("div")
+        let imgf = document.createElement("li")
+        imgf.setAttribute('class',"liNome")
+        div.setAttribute('class',"container")
+
+        loader()
+
+    }  
+    
+    } 
+    function loader() {
+    let b = document.getElementById("f")
+    b.style.display = "inline-block"
+    }
+    
+</script>
+</body>
+</html>
